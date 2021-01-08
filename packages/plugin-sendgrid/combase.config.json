@@ -6,7 +6,7 @@
 			"inputType": "password",
 			"required": true
 		},
-		"secreta": {
+		"secret": {
 			"type": "String",
 			"inputType": "password",
 			"required": true
