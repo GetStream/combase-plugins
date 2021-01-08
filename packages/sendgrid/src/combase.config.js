@@ -2,8 +2,8 @@ export default {
 	/**
 	 * ?  The "Human Readable" name shown in the UI
 	 */
-	"name": 'Example Plugin',
-	"about": "./about.md",
+	"name": 'Sendbird Plugin',
+	"about": "about.md",
 	/**
 	 * ? The fields presented to the user when they add the plugin to their organization
 	 */
