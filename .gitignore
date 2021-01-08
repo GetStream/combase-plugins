@@ -54,5 +54,6 @@ package-lock.json
 # ignore any lock file other than main lock file
 !/yarn.lock
 
-**/*.js
+!**/*.js
 !**/src/*.js
+!**/scripts/*.js

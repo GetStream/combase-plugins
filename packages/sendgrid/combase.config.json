@@ -1,0 +1,29 @@
+{
+	"name": "Sendbird",
+	"configuration": {
+		"key": {
+			"type": "String",
+			"inputType": "password",
+			"required": true
+		},
+		"secret": {
+			"type": "String",
+			"inputType": "password",
+			"required": true
+		}
+	},
+	"triggers": {
+		"sendbird:send": "sendEmail",
+		"sendbird:receive": "receiveEmail",
+		"combase:chat.archive": "alertUser"
+	},
+	"fields": {
+		"Organization": [
+			"stream.key",
+			"stream.secret",
+			"name",
+			"contact.name",
+			"contact.email"
+		]
+	}
+}
