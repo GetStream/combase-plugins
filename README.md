@@ -18,6 +18,8 @@ Anything with the `src` directory of the plugin will be compiled into the root o
 > On `clean`, any files that were compiled from `src` will be removed form the root.
 > Any other existing files, including MD or JS files that we're _not_ originally in `src` will remain intact.
 
+Every plugin should define it's structure and available behaviors in `combase.config.json` - this ultimately becomes a GraphQL Object Type in the Combase API so users can query, filter and configure your plugin.
+
 #### Workspace
 This monorepo uses Lerna and Yarn Workspaces.
 
