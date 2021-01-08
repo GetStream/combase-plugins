@@ -6,9 +6,12 @@
     "private": true,
     "scripts": {
         "prettier": "prettier \"**/*.{md,css,scss,yaml,yml}\"",
-        "build": "lerna exec --parallel --scope '@combase/*' -- yarn build:run",
+        "build": "lerna exec --parallel --scope '@combase/*' -- yarn build",
         "clean": "node scripts/clean-pkgs.js",
-        "watch": "lerna exec --parallel --scope '@combase/*' -- yarn build:watch"
+        "publish:dry-run": "yarn clean --verbose && lerna exec --parallel -- yarn prepare && lerna version",
+        "publish:release": "yarn clean --verbose && lerna exec --parallel -- yarn prepare && lerna publish",
+        "publish": "echo \"Use 'yarn publish:release' instead of 'yarn run publish'\"",
+        "watch": "lerna exec --parallel --scope '@combase/*' -- yarn watch"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": "eslint --cache --ext .js,.jsx,.ts,.tsx --fix",

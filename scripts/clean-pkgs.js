@@ -16,17 +16,23 @@ const { execSync } = require(`child_process`)
 let argv = yargs
   .command(
     `*`,
-    `Clear previously built files in packages`
+    `Clear previously built and potentially stale files in packages`,
   )
-
   .option(`dry-run`, {
     default: false,
     describe: `Don't delete files - just show what would be deleted`,
+    type: 'boolean'
   })
   .option(`verbose`, {
     default: false,
     describe: `Show files that would be bundled and mark files that will be deleted`,
+    type: 'boolean'
   })
+  .option(`force`, {
+    default: false,
+    describe: `Force deletion of files without prompting user to confirm`,
+    type: 'boolean'
+  }).argv
 
 const verbose = argv[`dry-run`] || argv[`verbose`];
 
@@ -74,7 +80,7 @@ const getListOfFilesToClear = async ({ location, name }) => {
   }
 
   const result = await packlist({ path: location })
-  console.log(gitignore);
+
   const ig = ignore().add(gitignore)
 
   if (verbose) {
@@ -84,11 +90,11 @@ const getListOfFilesToClear = async ({ location, name }) => {
   const filesToDelete = result
     .filter(file => {
       const willBeDeleted = ig.ignores(file)
-      console.log(file, willBeDeleted);
+
       if (verbose) {
         console.log(
           `[ ${
-            willBeDeleted ? chalk.red(`DEL`) : chalk.green(` - `)
+            willBeDeleted ? chalk.red(` X `) : chalk.green(` - `)
           } ] ${path.posix.join(file)}`
         )
       }
@@ -122,8 +128,6 @@ const run = async () => {
       await Promise.all(changed.map(getListOfFilesToClear))
     );
 
-    console.log(filesToDelete);
-
     if (!argv[`dry-run`] && filesToDelete.length > 0) {
       if (
         argv[`force`] ||
@@ -135,7 +139,11 @@ const run = async () => {
           fs.removeSync(file);
         });
       } else {
-        console.log(`${chalk.red(`Stopping clean`)}`);
+        console.log(`
+        ${chalk.red(`Stopping clean`)}:
+        If the file list included files you don't want to be deleted, it's likely because they are untracked.
+        Try committing your changes and running clean again.
+        `);
         
         process.exit(1);
       }
