@@ -1,6 +1,6 @@
 {
   "name": "@combase/plugin-sendgrid",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Send and Receive emails with Sendgrid.",
   "author": "Stream.io, Inc.",
   "repository": {
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
-    "babel-preset-combase-plugin": "^0.1.0",
+    "babel-preset-combase-plugin": "^0.1.1",
     "cross-env": "^7.0.3"
   },
   "main": "index.js",
