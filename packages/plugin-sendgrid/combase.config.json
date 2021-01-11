@@ -13,8 +13,8 @@
 		}
 	},
 	"triggers": {
-		"sendbird:send": "sendEmail",
-		"sendbird:receive": "receiveEmail",
+		"email:send": "sendEmail",
+		"email:receive": "receiveEmail",
 		"combase:chat.archive": "alertUser"
 	},
 	"fields": {
