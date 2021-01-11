@@ -1,5 +1,5 @@
 {
-	"name": "Sendbird",
+	"name": "Sendgrid",
 	"configuration": {
 		"key": {
 			"type": "String",
