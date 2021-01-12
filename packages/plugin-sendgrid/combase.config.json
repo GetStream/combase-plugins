@@ -1,5 +1,6 @@
 {
 	"name": "Sendgrid",
+	"category": ["email"],
 	"configuration": {
 		"key": {
 			"type": "String",
