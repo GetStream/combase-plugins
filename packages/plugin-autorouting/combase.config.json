@@ -1,0 +1,9 @@
+{
+	"name": "Autorouting",
+	"category": ["organization"],
+	"configuration": {},
+	"triggers": {
+		"ticket:created": "assignTicket"
+	},
+	"fields": {}
+}

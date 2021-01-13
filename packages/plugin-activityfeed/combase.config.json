@@ -1,0 +1,22 @@
+{
+	"name": "Combase Activity Feeds",
+	"category": ["organizational"],
+	"configuration": {
+		"key": {
+			"type": "String",
+			"inputType": "password",
+			"required": true
+		},
+		"secret": {
+			"type": "String",
+			"inputType": "password",
+			"required": true
+		}
+	},
+	"triggers": {
+		"user:created": "onUserCreated",
+		"user:updated": "onUserUpdated",
+		"user:deleted": "onUserDeleted"
+	},
+	"fields": {}
+}
