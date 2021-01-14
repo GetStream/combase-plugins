@@ -1,9 +1,22 @@
 import gql from 'graphql-tag';
 
-export const setAgentUnavailable = (...args) => console.log('set unavailable', ...args);
-export const addToChat = (agent, ticketId) => [
+const setAgentUnavailable = (ticketId) => [
     gql`
-        mutation assignTicket($agent: MongoID!, $ticket: MongoID!, $status: EnumTicketStatus) {
+        mutation assignTicket($ticket: MongoID!, $status: EnumTicketStatus) {
+            ticketAssign(ticket: $ticket, status: $status) {
+                _id
+            }
+        }
+    `,
+    {
+        ticket: ticketId,
+        status: "unassigned",
+    }
+];
+
+const addToChat = (agent, ticketId) => [
+    gql`
+        mutation assignTicket($agent: MongoID, $ticket: MongoID!, $status: EnumTicketStatus) {
             ticketAssign(agent: $agent, ticket: $ticket, status: $status) {
                 _id
             }
@@ -18,7 +31,6 @@ export const addToChat = (agent, ticketId) => [
 
 export const assignTicket = async (event, {request}) => {
     const ticketId = event._id?.toString?.();
-    const organization = event.data?.fullDocument?.organization?.toString?.();
 
     try {
         const { agents } = await request(
@@ -41,7 +53,7 @@ export const assignTicket = async (event, {request}) => {
         let agent;
 
 		/** No Agents - Set Unavailable */
-		if (!agents?.length) return setAgentUnavailable(ticketId, organization);
+        if (!agents?.length) return request(...setAgentUnavailable(ticketId));
 
 		/** Only 1 agent - Assign to this agent */
 		if (agents.length === 1) agent = agents[0];
