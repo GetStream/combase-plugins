@@ -44,23 +44,19 @@ export const onTicketCreated = (event, { request }) => {
 };
 
 export const onTicketUpdated = (event, { request }) => {
-    console.log('ticket:updated', event);
 
-    const userId = event.data.fullDocument.user.toString();
     const organizationId = event.data.fullDocument.organization.toString();
     const ticketId = event.data.fullDocument._id.toString();
 
-    const userFeed = `user:${userId}`;
     const ticketFeed = `ticket:${ticketId}`;
-    const organizationFeed = `organization:${organizationId}`;
 
     const baseActivity = {
         object: ticketId,
         entity: 'Ticket',
-        to: [ticketFeed],
         verb: event.trigger,
     };
 
+    /** Unassigned Ticket */
     if (event.data.updateDescription.updatedFields.status === 'unassigned') {
        const activity = {
            ...baseActivity,
@@ -83,6 +79,7 @@ export const onTicketUpdated = (event, { request }) => {
        )
     }
 
+    /** Assigned Ticket */
     if (event.data.updateDescription.updatedFields.status === 'open' && event.data.fullDocument.agents.length > 0) {
        const agentId = event.data.fullDocument.agents[0].toString();
        const activity = {
