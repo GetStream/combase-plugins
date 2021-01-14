@@ -5,5 +5,9 @@
 	"triggers": {
 		"ticket:created": "assignTicket"
 	},
-	"fields": {}
+	"fields": {
+		"Organization": [
+			"name"
+		]
+	}
 }
