@@ -1,6 +1,7 @@
 {
 	"name": "Autorouting",
 	"category": ["organization"],
+	"icon": "./stream.jpg",
 	"configuration": {},
 	"triggers": {
 		"ticket:created": "assignTicket"
