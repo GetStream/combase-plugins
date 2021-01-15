@@ -59,3 +59,6 @@ yarn clean
 ```bash
 yarn workspace @compase/plugin-x build:clean
 ```
+---
+
+- Don't need headings in `about.md` - the page will generate a header for you. Subheadings within the document are fine, `<h*>` elements at the top can look strange. Don't use `h1` anywhere.
