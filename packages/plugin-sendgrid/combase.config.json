@@ -15,17 +15,7 @@
 		}
 	},
 	"triggers": {
-		"email:send": "sendEmail",
-		"email:receive": "receiveEmail",
-		"combase:chat.archive": "alertUser"
-	},
-	"fields": {
-		"Organization": [
-			"stream.key",
-			"stream.secret",
-			"name",
-			"contact.name",
-			"contact.email"
-		]
+		"user.updated": "sendEmail",
+		"sendgrid.receive": "receiveEmail"
 	}
 }

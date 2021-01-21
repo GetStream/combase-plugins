@@ -1,7 +1,7 @@
 {
-  "name": "@combase.app/plugin-sendgrid",
+  "name": "@combase.app/integrations",
   "version": "0.1.0",
-  "description": "Send and Receive emails with Sendgrid.",
+  "description": "All integrations and extended functionality for Combase.",
   "author": "Stream.io, Inc.",
   "repository": {
     "type": "git",

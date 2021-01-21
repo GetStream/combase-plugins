@@ -4,7 +4,7 @@
 	"icon": "./stream.jpg",
 	"configuration": {},
 	"triggers": {
-		"ticket:created": "assignTicket"
+		"ticket.created": "assignTicket"
 	},
 	"fields": {
 		"Organization": [

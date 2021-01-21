@@ -4,8 +4,8 @@
 	"category": ["organizational"],
 	"configuration": {},
 	"triggers": {
-		"ticket:created": "onTicketCreated",
-		"ticket:updated": "onTicketUpdated"
+		"ticket.created": "onTicketCreated",
+		"ticket.updated": "onTicketUpdated"
 	},
 	"fields": {}
 }
