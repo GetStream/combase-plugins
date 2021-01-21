@@ -16,6 +16,6 @@
 	},
 	"triggers": {
 		"user.updated": "sendEmail",
-		"sendgrid.receive": "receiveEmail"
+		"email.receive": "receiveEmail"
 	}
 }

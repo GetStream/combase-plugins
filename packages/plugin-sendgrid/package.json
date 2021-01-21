@@ -1,7 +1,7 @@
 {
-  "name": "@combase.app/integrations",
+  "name": "@combase.app/plugin-sendgrid",
   "version": "0.1.0",
-  "description": "All integrations and extended functionality for Combase.",
+  "description": "SendGrid for Emails in Combase.",
   "author": "Stream.io, Inc.",
   "repository": {
     "type": "git",
@@ -14,7 +14,10 @@
     "prepare": "cross-env NODE_ENV=production yarn build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5"
+    "@babel/runtime": "^7.12.5",
+    "@sendgrid/inbound-mail-parser": "^7.4.2",
+    "nodemailer": "^6.4.17",
+    "nodemailer-sendgrid-transport": "^0.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

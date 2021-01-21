@@ -30,7 +30,7 @@ const addToChat = (agent, ticketId) => [
 ];
 
 export const assignTicket = async (event, {request}) => {
-    const ticketId = event._id?.toString?.();
+    const ticketId = event.body._id?.toString?.();
 
     try {
         const { agents } = await request(
