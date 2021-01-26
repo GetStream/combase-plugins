@@ -4,8 +4,6 @@ import sgParse from '@sendgrid/inbound-mail-parser';
 import gql from 'graphql-tag';
 
 export const receiveEmail = async (event, { request }) => {
-	console.log('📫 New Email:', event);
-
 	const {user} = await request(gql`
 		mutation ($record: UserInput!) {
 			user: getOrCreateUser(record: $record) {
@@ -31,28 +29,31 @@ export const receiveEmail = async (event, { request }) => {
 		message: event.data.body.text,
 		user: user._id.toString(),
 	});
-	console.log('🎟 Created Ticket', data.ticket._id.toString())
+
+	console.log('🎟  Created Ticket', data.ticket._id.toString())
 };
 
 export const sendEmail = async (event, { request }) => {
-	console.log('Send Email:', event, event.data.body.fullDocument);
-
-	// const transporter = nodemailer.createTransport(
-	// 	sgTransport({
-	// 		auth: {
-	// 			// TODO: get value from plugins model
-	// 			api_key: process.env.SENDGRID_API_KEY,
-	// 		},
-	// 	})
-	// );
 	
-	// const email = await transporter.sendMail({
-	// 	from: '"Fred Foo 👻" <foo@example.com>', // sender address
-	// 	to: 'bar@example.com, baz@example.com', // list of receivers
-	// 	subject: 'Hello ✔', // Subject line
-	// 	html: '<b>Hello world?</b>', // html body
-	// });
+	const transporter = nodemailer.createTransport(
+		sgTransport({
+			auth: {
+				// TODO: get value from plugins model
+				api_key: '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',
+			},
+		})
+	);
+	
+	const to = 'Luke <luke@getstream.io>';
 
+	await transporter.sendMail({
+		from: 'Combase <tickets.no_reply@combase.app>', // sender address
+		to, // list of receivers
+		subject: '🎟 You\'ve been assigned a new ticket!', // Subject line
+		html: `New Ticket: ${event.data._id.toString()}`, // html body
+	});
+	
+	console.log(`✉️  Sent ${event.trigger} Email: ${to}`);
 	// console.log(event, c);
 	// await request(
 	// 	gql`
