@@ -39,7 +39,7 @@ export const sendEmail = async (event, { request }) => {
 		sgTransport({
 			auth: {
 				// TODO: get value from plugins model
-				api_key: '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',
+				api_key: '',
 			},
 		})
 	);
@@ -47,7 +47,7 @@ export const sendEmail = async (event, { request }) => {
 	const to = 'Luke <luke@getstream.io>';
 
 	await transporter.sendMail({
-		from: 'Combase <tickets.no_reply@combase.app>', // sender address
+		from: 'Combase <@combase.app>', // sender address
 		to, // list of receivers
 		subject: '🎟 You\'ve been assigned a new ticket!', // Subject line
 		html: `New Ticket: ${event.data._id.toString()}`, // html body
