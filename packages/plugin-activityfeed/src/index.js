@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export const onTicketCreated = (event, { request }) => {
+export const onTicketCreated = (event, { gql, request }) => {
     try {
         const userId = event.data.fullDocument.user.toString();
         const organizationId = event.data.fullDocument.organization.toString();
@@ -43,7 +41,7 @@ export const onTicketCreated = (event, { request }) => {
     }
 };
 
-export const onTicketUpdated = (event, { request }) => {
+export const onTicketUpdated = (event, { gql, request }) => {
 
     const organizationId = event.data.fullDocument.organization.toString();
     const ticketId = event.data.fullDocument._id.toString();
