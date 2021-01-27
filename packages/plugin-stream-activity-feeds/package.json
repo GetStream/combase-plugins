@@ -4,6 +4,9 @@
   "description": "Map Combase events to Stream Activity Feeds",
   "author": "Stream.io, Inc.",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.js",
   "repository": {

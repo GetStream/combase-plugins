@@ -4,6 +4,9 @@
   "description": "SendGrid email support for Combase.",
   "author": "Stream.io, Inc.",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.js",
   "repository": {
