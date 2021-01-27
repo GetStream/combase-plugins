@@ -1,3 +1,5 @@
 {
-  "presets": [["babel-preset-combase-plugin", { "browser": false }]]
+  "presets": [
+    ["@combase.app/babel-preset-combase-plugin", { "browser": false }]
+  ]
 }

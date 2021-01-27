@@ -28,7 +28,7 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
-    "babel-preset-combase-plugin": "^0.1.0",
+    "@combase.app/babel-preset-combase-plugin": "^0.0.3",
     "cross-env": "^7.0.3"
   }
 }
