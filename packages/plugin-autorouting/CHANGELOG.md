@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/GetStream/combase-plugins/compare/@combase.app/plugin-autorouting@0.0.4...@combase.app/plugin-autorouting@0.0.5) (2021-01-27)
+
+**Note:** Version bump only for package @combase.app/plugin-autorouting
+
+
+
+
+
 ## [0.0.4](https://github.com/GetStream/combase-plugins/compare/@combase.app/plugin-autorouting@0.0.3...@combase.app/plugin-autorouting@0.0.4) (2021-01-27)
 
 **Note:** Version bump only for package @combase.app/plugin-autorouting
