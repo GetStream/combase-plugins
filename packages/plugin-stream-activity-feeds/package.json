@@ -1,6 +1,6 @@
 {
   "name": "@combase.app/plugin-stream-activity-feeds",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Map Combase events to Stream Activity Feeds",
   "author": "Stream.io, Inc.",
   "private": false,
