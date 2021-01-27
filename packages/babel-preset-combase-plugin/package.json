@@ -15,7 +15,8 @@
     "directory": "packages/babel-preset-combase-plugin"
   },
   "scripts": {
-    "prepare": "echo \"No Build Step Required\" && exit 0"
+    "prepare": "echo \"No Prepare Step Required\" && exit 0",
+    "build": "echo \"No Build Step Required\" && exit 0"
   },
   "dependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
