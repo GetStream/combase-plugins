@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "author": "Stream.io, Inc.",
-  "private": false,
+  "private": true,
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "prettier": "prettier \"**/*.{md,css,scss,yaml,yml}\"",
