@@ -1,8 +1,11 @@
 {
-  "name": "babel-preset-combase-plugin",
+  "name": "@combase.app/babel-preset-combase-plugin",
   "version": "0.1.0",
   "description": "Preconfigured babel setup for easier Combase plugin development.",
   "author": "Stream.io, Inc.",
+  "private": false,
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/GetStream/combase-plugins.git",
@@ -23,7 +26,5 @@
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10"
-  },
-  "main": "index.js",
-  "license": "MIT"
+  }
 }

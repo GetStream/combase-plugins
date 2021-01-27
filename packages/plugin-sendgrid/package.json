@@ -1,8 +1,11 @@
 {
   "name": "@combase.app/plugin-sendgrid",
   "version": "0.1.0",
-  "description": "SendGrid for Emails in Combase.",
+  "description": "SendGrid email support for Combase.",
   "author": "Stream.io, Inc.",
+  "private": false,
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/GetStream/combase-plugins.git",
@@ -24,7 +27,5 @@
     "@babel/core": "^7.12.3",
     "babel-preset-combase-plugin": "^0.1.0",
     "cross-env": "^7.0.3"
-  },
-  "main": "index.js",
-  "license": "MIT"
+  }
 }

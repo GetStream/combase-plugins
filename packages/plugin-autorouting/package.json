@@ -1,8 +1,11 @@
 {
   "name": "@combase.app/plugin-autorouting",
   "version": "0.1.0",
-  "description": "Automatically asssign new Tickets to your Agents in Combase.",
+  "description": "Automatically asssign and route tickets to agents in Combase.",
   "author": "Stream.io, Inc.",
+  "private": false,
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/GetStream/combase-plugins.git",
@@ -21,7 +24,5 @@
     "@babel/core": "^7.12.3",
     "babel-preset-combase-plugin": "^0.1.0",
     "cross-env": "^7.0.3"
-  },
-  "main": "index.js",
-  "license": "MIT"
+  }
 }

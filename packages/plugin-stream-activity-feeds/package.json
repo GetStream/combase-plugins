@@ -1,12 +1,15 @@
 {
-  "name": "@combase.app/plugin-activityfeed",
+  "name": "@combase.app/plugin-stream-activity-feeds",
   "version": "0.1.0",
   "description": "Map Combase events to Stream Activity Feeds",
   "author": "Stream.io, Inc.",
+  "private": false,
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/GetStream/combase-plugins.git",
-    "directory": "packages/plugin-activityfeed"
+    "directory": "packages/plugin-stream-activity-feeds"
   },
   "scripts": {
     "build": "babel src --out-dir . --ignore \"**/__tests__\"",
@@ -21,7 +24,5 @@
     "@babel/core": "^7.12.3",
     "babel-preset-combase-plugin": "^0.1.0",
     "cross-env": "^7.0.3"
-  },
-  "main": "index.js",
-  "license": "MIT"
+  }
 }
