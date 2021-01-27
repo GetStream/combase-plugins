@@ -4,10 +4,10 @@
       "license": "LICENSE"
     },
     "publish": {
-      "allowBranch": "release/*",
+      "allowBranch": "main",
       "bump": "patch",
       "conventionalCommits": true,
-      "message": "chore(release): Publish"
+      "message": "chore(release): publish"
     }
   },
   "packages": ["packages/*"],

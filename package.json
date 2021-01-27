@@ -47,5 +47,6 @@
     "npm-packlist": "^2.1.4",
     "prettier": "^2.2.1",
     "yargs": "^16.2.0"
-  }
+  },
+  "version": "0.0.1"
 }
