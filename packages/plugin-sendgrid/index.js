@@ -58,18 +58,18 @@ const sendEmail = async (event, {
   }));
 
   const data = await request(gql`
-	query ($agent: MongoID!){
-		organization {
-			name
-		}
-		
-		agent: agentById(_id:$agent) {
-			name {
-				display
+		query ($agent: MongoID!){
+			organization {
+				name
 			}
-			email
+			
+			agent: agentById(_id:$agent) {
+				name {
+					display
+				}
+				email
+			}
 		}
-	}
 	`, {
     agent: event.data.body.fullDocument.agents[0]
   });

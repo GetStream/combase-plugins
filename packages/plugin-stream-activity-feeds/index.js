@@ -7,11 +7,15 @@ const onTicketCreated = (event, {
   gql,
   request
 }) => {
-  try {
-    const userId = event.data.fullDocument.user.toString();
-    const organizationId = event.data.fullDocument.organization.toString();
+  const {
+    fullDocument
+  } = event.data.body;
 
-    const ticketId = event.data.fullDocument._id.toString();
+  try {
+    const userId = fullDocument.user.toString();
+    const organizationId = fullDocument.organization.toString();
+
+    const ticketId = fullDocument._id.toString();
 
     const userFeed = `user:${userId}`;
     const ticketFeed = `ticket:${ticketId}`;
@@ -54,9 +58,13 @@ const onTicketUpdated = (event, {
   gql,
   request
 }) => {
-  const organizationId = event.data.fullDocument.organization.toString();
+  const {
+    fullDocument,
+    updateDescription
+  } = event.data.body;
+  const organizationId = fullDocument.organization.toString();
 
-  const ticketId = event.data.fullDocument._id.toString();
+  const ticketId = fullDocument._id.toString();
 
   const ticketFeed = `ticket:${ticketId}`;
   const baseActivity = {
@@ -66,7 +74,7 @@ const onTicketUpdated = (event, {
   };
   /** Unassigned Ticket */
 
-  if (event.data.updateDescription.updatedFields.status === 'unassigned') {
+  if (updateDescription.updatedFields.status === 'unassigned') {
     const activity = { ...baseActivity,
       text: 'Missed Ticket',
       actor: organizationId
@@ -85,8 +93,8 @@ const onTicketUpdated = (event, {
   /** Assigned Ticket */
 
 
-  if (event.data.updateDescription.updatedFields.status === 'open' && event.data.fullDocument.agents.length > 0) {
-    const agentId = event.data.fullDocument.agents[0].toString();
+  if (updateDescription.updatedFields.status === 'open' && fullDocument.agents.length > 0) {
+    const agentId = fullDocument.agents[0].toString();
     const activity = { ...baseActivity,
       object: agentId,
       entity: 'Agent',
