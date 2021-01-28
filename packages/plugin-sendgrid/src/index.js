@@ -1,7 +1,3 @@
-import nodemailer from 'nodemailer';
-import sgTransport from 'nodemailer-sendgrid-transport';
-import sgParse from '@sendgrid/inbound-mail-parser';
-
 export const receiveEmail = async (event, { gql, log, request }) => {
 	const {user} = await request(gql`
 		mutation ($record: UserInput!) {
@@ -32,44 +28,36 @@ export const receiveEmail = async (event, { gql, log, request }) => {
 	log.info(`🎟  Created Ticket ${data.ticket._id.toString()}`)
 };
 
-export const sendEmail = async (event, { gql, log, request }) => {
+// TEMP: Hidden for now so that the plugin creator will ignore this method and act as if we have no listener to send outbound emails
+// TODO: Fix up issue with Sendgrid and uncomment this.
+// export const sendEmail = async (event, { gql, log, request, emailTransport }) => {
 	
-	const transporter = nodemailer.createTransport(
-		sgTransport({
-			auth: {
-				// TODO: get value from plugins model
-				api_key: '',
-			},
-		})
-	);
-	
-	
-	const data = await request(gql`
-		query ($agent: MongoID!){
-			organization {
-				name
-			}
+// 	const data = await request(gql`
+// 		query ($agent: MongoID!){
+// 			organization {
+// 				name
+// 			}
 			
-			agent: agentById(_id:$agent) {
-				name {
-					display
-				}
-				email
-			}
-		}
-	`, { agent: event.data.body.fullDocument.agents[0] })
+// 			agent: agentById(_id:$agent) {
+// 				name {
+// 					display
+// 				}
+// 				email
+// 			}
+// 		}
+// 	`, { agent: event.data.body.fullDocument.agents[0] })
 	
-	const { name } = data.organization
+// 	const { name } = data.organization
 	
-	const orgName = `${name.charAt(0).toUpperCase()}${name.slice(1)} Support`;
-	const to = `${data.agent.name.display} <${data.agent.email}>`;
+// 	const orgName = `${name.charAt(0).toUpperCase()}${name.slice(1)} Support`;
+// 	const to = `${data.agent.name.display} <${data.agent.email}>`;
 
-	await transporter.sendMail({
-		from: `${orgName} <${event.organization}@parse.combase.app>`, // sender address
-		to, // list of receivers
-		subject: '🎟 You\'ve been assigned a new ticket!', // Subject line
-		html: `${orgName} • New Ticket: ${event.data._id.toString()}`, // html body
-	});
+// 	await emailTransport.sendMail({
+// 		from: `${orgName} <${event.organization}@parse.combase.app>`, // sender address
+// 		to, // list of receivers
+// 		subject: '🎟 You\'ve been assigned a new ticket!', // Subject line
+// 		html: `${orgName} • New Ticket: ${event.data._id.toString()}`, // html body
+// 	});
 	
-	log.info(`✉️  Sent ${event.trigger} Email: ${to}`);
-};
+// 	log.info(`✉️  Sent ${event.trigger} Email: ${to}`);
+// };
