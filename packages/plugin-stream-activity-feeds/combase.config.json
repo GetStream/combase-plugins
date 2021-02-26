@@ -5,7 +5,8 @@
 	"configuration": {},
 	"triggers": {
 		"ticket.created": "onTicketCreated",
-		"ticket.updated": "onTicketUpdated"
+		"ticket.assigned": "onTicketAssigned",
+		"ticket.unassigned": "onTicketUnassigned"
 	},
 	"fields": {}
 }

@@ -42,9 +42,8 @@ export const onTicketCreated = (event, { gql, request }) => {
     }
 };
 
-export const onTicketUpdated = (event, { gql, request }) => {
-
-	const { fullDocument, updateDescription } = event.data.body;
+export const onTicketAssigned = (event, { gql, request }) => {
+	const { fullDocument } = event.data.body;
 
     const organizationId = fullDocument.organization.toString();
     const ticketId = fullDocument._id.toString();
@@ -57,53 +56,62 @@ export const onTicketUpdated = (event, { gql, request }) => {
         verb: event.trigger,
     };
 
-    /** Unassigned Ticket */
-    if (updateDescription.updatedFields.status === 'unassigned') {
-       const activity = {
-           ...baseActivity,
-           text: 'Missed Ticket',
-           actor: organizationId,
-       };
+	const agentId = fullDocument.agents[0].toString();
+	const activity = {
+		...baseActivity,
+		object: agentId,
+		entity: 'Agent',
+		text: 'Assigned Ticket',
+		actor: organizationId, // "Org Bot" assigns the ticket.
+	};
 
-       return request(
-            gql`
-                mutation createTicketCreatedActivity($ticketFeed: StreamID!, $activity: StreamAddActivityInput!) {
-                    addActivity(feed: $ticketFeed, activity: $activity) {
-                        id
-                    }
-                }
-            `,
-            {
-                ticketFeed,
-                activity,
-            }
-       )
-    }
+	return request(
+		gql`
+			mutation createTicketCreatedActivity($ticketFeed: StreamID!, $activity: StreamAddActivityInput!) {
+				addActivity(feed: $ticketFeed, activity: $activity) {
+					id
+				}
+			}
+		`,
+		{
+			ticketFeed,
+			activity,
+		}
+	)
+}
 
-    /** Assigned Ticket */
-    if (updateDescription.updatedFields.status === 'open' && fullDocument.agents.length > 0) {
-       const agentId = fullDocument.agents[0].toString();
-       const activity = {
-           ...baseActivity,
-           object: agentId,
-           entity: 'Agent',
-           text: 'Assigned Ticket',
-           actor: organizationId, // "Org Bot" assigns the ticket.
-       };
+export const onTicketUnassigned = (event, { gql, request }) => {
+	const { fullDocument } = event.data.body;
 
-       return request(
-            gql`
-                mutation createTicketCreatedActivity($ticketFeed: StreamID!, $activity: StreamAddActivityInput!) {
-                    addActivity(feed: $ticketFeed, activity: $activity) {
-                        id
-                    }
-                }
-            `,
-            {
-                ticketFeed,
-                activity,
-            }
-       )
-    }
-};
+    const organizationId = fullDocument.organization.toString();
+    const ticketId = fullDocument._id.toString();
+
+    const ticketFeed = `ticket:${ticketId}`;
+
+    const baseActivity = {
+        object: ticketId,
+        entity: 'Ticket',
+        verb: event.trigger,
+    };
+
+	const activity = {
+		...baseActivity,
+		text: 'Missed Ticket',
+		actor: organizationId,
+	};
+
+	return request(
+		gql`
+			mutation createTicketCreatedActivity($ticketFeed: StreamID!, $activity: StreamAddActivityInput!) {
+				addActivity(feed: $ticketFeed, activity: $activity) {
+					id
+				}
+			}
+		`,
+		{
+			ticketFeed,
+			activity,
+		}
+	);
+}
 

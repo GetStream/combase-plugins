@@ -28,7 +28,8 @@ const addToChat = (agent, ticketId) => (gql) => [
 ];
 
 export const assignTicket = async (event, {gql, log, request}) => {
-    const ticketId = event.data._id?.toString?.();
+	console.log(event);
+    const ticketId = event.data.body.channel_id;
 
     try {
         const { agents } = await request(
@@ -71,7 +72,7 @@ export const assignTicket = async (event, {gql, log, request}) => {
 			}
 
 			return request(
-				...addToChat(agent, ticketId.toString())(gql)
+				...addToChat(agent, ticketId)(gql)
 			);
         
     } catch (error) {
