@@ -28,13 +28,12 @@ export const receiveEmail = async (event, { gql, log, request }) => {
 	log.info(`🎟  Created Ticket ${data.ticket._id.toString()}`)
 };
 
-// TEMP: Hidden for now so that the plugin creator will ignore this method and act as if we have no listener to send outbound emails
 // TODO: Fix up issue with Sendgrid and uncomment this.
 export const sendEmail = async (event, { gql, log, request, emailTransport }) => {
 
 	const data = await request(gql`
-		query ($agent: MongoID!){
-			organization {
+		query ($organization: MongoID!, $agent: MongoID!){
+			organization(_id: $organization) {
 				name
 			}
 			
@@ -45,19 +44,19 @@ export const sendEmail = async (event, { gql, log, request, emailTransport }) =>
 				email
 			}
 		}
-	`, { agent: event.data.body.fullDocument.agents[0] })
+	`, { agent: event.data.body.fullDocument.agents[0], organization: event.organization })
 	
 	const { name } = data.organization
 	
 	const orgName = `${name.charAt(0).toUpperCase()}${name.slice(1)} Support`;
 	const to = `${data.agent.name.display} <${data.agent.email}>`;
 
-	await emailTransport.sendMail({
-		from: `${orgName} <${event.organization}@parse.combase.app>`, // sender address
-		to, // list of receivers
-		subject: '🎟 You\'ve been assigned a new ticket!', // Subject line
-		html: `${orgName} • New Ticket: ${event.data._id.toString()}`, // html body
-	});
+	// await emailTransport.sendMail({
+	// 	from: `${orgName} <${event.organization}@parse.combase.app>`, // sender address
+	// 	to, // list of receivers
+	// 	subject: '🎟 You\'ve been assigned a new ticket!', // Subject line
+	// 	html: `${orgName} • New Ticket: ${event.data._id.toString()}`, // html body
+	// });
 	
-	log.info(`✉️  Sent ${event.trigger} Email: ${to}`);
+	log.info(`✉️  Sent ${event.trigger} Email: ${to} • ${orgName}`);
 };
