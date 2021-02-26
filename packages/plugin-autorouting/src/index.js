@@ -32,47 +32,47 @@ export const assignTicket = async (event, {gql, log, request}) => {
 
     try {
         const { agents } = await request(
-            gql`
-                query getAvailableAgents {
-                    agents: agentsAvailable {
-                        _id
-                        name {
-                            display
-                        }
-                        available
-                        email
-                        role
-                        avatar
-                    }
-                }
-            `
-        );
+					gql`
+						query getAvailableAgents {
+								agents: agentsAvailable {
+										_id
+										name {
+											display
+										}
+										available
+										email
+										role
+										avatar
+								}
+						}
+					`
+			);
         
-        let agent;
+			let agent;
 
-		/** No Agents - Set Unavailable */
-        if (!agents?.length) return request(...setAgentUnavailable(ticketId)(gql));
+			/** No Agents - Set Unavailable */
+			if (!agents?.length) return request(...setAgentUnavailable(ticketId)(gql));
 
-		/** Only 1 agent - Assign to this agent */
-		if (agents.length === 1) agent = agents[0];
+			/** Only 1 agent - Assign to this agent */
+			if (agents.length === 1) agent = agents[0];
 
-		/** Multiple Available Agents - Decide on the most suitable agent */
-		if (agents.length > 1) {
-			/*
-			 * should handle an array available agents (more than 1)
-			 * need to balance by tickets open/completed
-			 * then pick rand
-			 */
+			/** Multiple Available Agents - Decide on the most suitable agent */
+			if (agents.length > 1) {
+				/*
+				* should handle an array available agents (more than 1)
+				* need to balance by tickets open/completed
+				* then pick rand
+				*/
 
-			const randIdx = Math.floor(Math.random() * agents.length);
+				const randIdx = Math.floor(Math.random() * agents.length);
 
-			// TEMP: Replace with the above sorting/find mechanism.
-			agent = agents[randIdx];
-		}
+				// TEMP: Replace with the above sorting/find mechanism.
+				agent = agents[randIdx];
+			}
 
-        return request(
-			...addToChat(agent, ticketId.toString())(gql)
-		);
+			return request(
+				...addToChat(agent, ticketId.toString())(gql)
+			);
         
     } catch (error) {
         log.error(error);
