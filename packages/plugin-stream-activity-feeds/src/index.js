@@ -1,8 +1,8 @@
 export const onTicketCreated = (event, { gql, request }) => {
 	const { fullDocument } = event.data.body;
     try {
+        const organizationId = fullDocument.organization;
         const userId = fullDocument.user.toString();
-        const organizationId = fullDocument.organization.toString();
         const ticketId = fullDocument._id.toString();
 
         const userFeed = `user:${userId}`;
@@ -45,7 +45,7 @@ export const onTicketCreated = (event, { gql, request }) => {
 export const onTicketAssigned = (event, { gql, request }) => {
 	const { fullDocument } = event.data.body;
 
-    const organizationId = fullDocument.organization.toString();
+    const organizationId = event.organization;
     const ticketId = fullDocument._id.toString();
 
     const ticketFeed = `ticket:${ticketId}`;
@@ -83,7 +83,7 @@ export const onTicketAssigned = (event, { gql, request }) => {
 export const onTicketUnassigned = (event, { gql, request }) => {
 	const { fullDocument } = event.data.body;
 
-    const organizationId = fullDocument.organization.toString();
+    const organizationId = event.organization;
     const ticketId = fullDocument._id.toString();
 
     const ticketFeed = `ticket:${ticketId}`;
