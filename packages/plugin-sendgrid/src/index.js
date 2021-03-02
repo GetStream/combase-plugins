@@ -32,8 +32,8 @@ export const receiveEmail = async (event, { gql, log, request }) => {
 export const sendEmail = async (event, { gql, log, request, emailTransport }) => {
 
 	const data = await request(gql`
-		query ($organization: MongoID!, $agent: MongoID!){
-			organization(_id: $organization) {
+		query ($agent: MongoID!) {
+			organization {
 				name
 			}
 			
@@ -44,7 +44,7 @@ export const sendEmail = async (event, { gql, log, request, emailTransport }) =>
 				email
 			}
 		}
-	`, { agent: event.data.body.fullDocument.agents[0], organization: event.organization })
+	`, { agent: event.data.body.fullDocument.agents[0] })
 	
 	const { name } = data.organization
 	
