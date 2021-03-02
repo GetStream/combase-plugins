@@ -37,7 +37,7 @@ export const sendEmail = async (event, { gql, log, request, emailTransport }) =>
 				name
 			}
 			
-			agent: agentById(_id:$agent) {
+			agent(_id:$agent) {
 				name {
 					display
 				}

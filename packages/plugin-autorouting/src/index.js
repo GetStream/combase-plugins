@@ -32,20 +32,20 @@ export const assignTicket = async (event, {gql, log, request}) => {
 
     try {
         const { agents } = await request(
-					gql`
-						query getAvailableAgents {
-								agents: agentsAvailable {
-										_id
-										name {
-											display
-										}
-										available
-										email
-										role
-										avatar
-								}
+				gql`
+					query getAvailableAgents {
+						agents: agentsAvailable {
+							_id
+							name {
+								display
+							}
+							available
+							email
+							role
+							avatar
 						}
-					`
+					}
+				`
 			);
         
 			let agent;
@@ -75,6 +75,6 @@ export const assignTicket = async (event, {gql, log, request}) => {
 			);
         
     } catch (error) {
-        log.error(error);
+        log.error(error.message);
     }
 };
