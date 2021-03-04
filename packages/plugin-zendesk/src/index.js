@@ -1,34 +1,24 @@
-export const testZendesk = async ({ data, organization }, { gql, request, log }) => {
-	const [ name, email, message, ticketID ] = data.body.message.split(',');
+export const createTicket = async ({ data, organization, trigger }, { gql, request, log }) => {
+	const {name, email, message, ticketID} = data.body;
 
-	const {user} = await request(gql`
-		mutation ($record: UserInput!) {
-			user: getOrCreateUser(record: $record) {
-				_id
+	log.info(`☎️  Zendesk Event from User: ${name} <${email}> for Org: ${organization}`);
+
+	return request(gql`
+		mutation ($record: CreateTicketInput!, $user: UserInput!) {
+			ticketCreate(record: $record, user: $user) {
+				recordId
 			}
 		}
 	`, 
 		{
 			record: {
+				message,
+				meta: [{ event: trigger, foreignID: ticketID }]
+			},
+			user: {
 				email,
-				organization,
 				name,
-			}
-		}
-	);
-
-	log.info(`☎️  Zendesk Event from User: ${user._id} for Org: ${organization}`);
-
-	const ticket = await request(gql`
-		mutation ($message: String, $user: MongoID!) {
-			ticket: createTicket(message: $message, user: $user) {
-				_id
-			}
-		}
-	`, 
-		{
-			message,
-			user: user._id,
+			},
 		}
 	);
 };

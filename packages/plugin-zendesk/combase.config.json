@@ -15,6 +15,6 @@
 		}
 	},
 	"triggers": {
-		"zendesk.sync": "testZendesk"
+		"zendesk:ticket.new": "createTicket"
 	}
 }
