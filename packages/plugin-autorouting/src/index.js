@@ -31,18 +31,20 @@ export const assignTicket = async (event, {gql, log, request}) => {
     const ticketId = event.data.body.channel_id;
 
     try {
-        const { agents } = await request(
+        const { organization: { agents } } = await request(
 				gql`
 					query getAvailableAgents {
-						agents: agentsAvailable {
-							_id
-							name {
-								display
+						organization {
+							agents: agentsAvailable {
+								_id
+								name {
+									display
+								}
+								available
+								email
+								role
+								avatar
 							}
-							available
-							email
-							role
-							avatar
 						}
 					}
 				`
