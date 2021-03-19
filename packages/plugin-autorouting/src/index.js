@@ -35,7 +35,7 @@ export const assignTicket = async (event, {gql, log, request}) => {
 				gql`
 					query getAvailableAgents {
 						organization {
-							agents: agentsAvailable {
+							agents: availableAgents {
 								_id
 								name {
 									display
