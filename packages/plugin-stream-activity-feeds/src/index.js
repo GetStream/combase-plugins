@@ -177,7 +177,7 @@ export const onAgentCreated = (event, { gql, request }) => {
     const organizationId = event.organization;
     const agentId = fullDocument._id.toString();
 
-    const organizationFeed = `organization:${orgId}`;
+    const organizationFeed = `organization:${organizationId}`;
     const agentFeed = `agent:${agentId}`;
 
 	const activity = {
