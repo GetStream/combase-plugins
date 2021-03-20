@@ -6,7 +6,9 @@
 	"triggers": {
 		"ticket.created": "onTicketCreated",
 		"ticket.assigned": "onTicketAssigned",
-		"ticket.unassigned": "onTicketUnassigned"
+		"ticket.unassigned": "onTicketUnassigned",
+		"agent.created": "onAgentCreated",
+		"user.created": "onUserCreated"
 	},
 	"fields": {}
 }

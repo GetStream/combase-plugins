@@ -1,3 +1,6 @@
+/**
+ * Tickets
+ */
 export const onTicketCreated = (event, { gql, request }) => {
 	const { fullDocument } = event.data.body;
     try {
@@ -115,3 +118,92 @@ export const onTicketUnassigned = (event, { gql, request }) => {
 	);
 }
 
+/**
+ * Users
+ */
+
+/**
+ * Creates a 'created' activity on the users feed, and makes sure the organization
+ * is following the newly created user.
+ */
+export const onUserCreated = (event, { gql, request }) => {
+	const { fullDocument } = event.data.body;
+
+    const organizationId = event.organization;
+    const userId = fullDocument._id.toString();
+
+    const organizationFeed = `organization:${orgId}`;
+    const userFeed = `user:${userId}`;
+
+	const activity = {
+		object: userId,
+        entity: 'User',
+        verb: event.trigger,
+		text: 'was created.', // TODO: We should do these in the FE based on the verb rather than hardcode them into stream.
+		actor: organizationId,
+	};
+
+	return request(
+		gql`
+			mutation createUserCreatedActivity($userFeed: StreamID!, $activity: StreamAddActivityInput!) {
+				addActivity(feed: $userFeed, activity: $activity) {
+					id
+				}
+
+                orgFollowUser: follow(feed: $organizationFeed, toFollow: $userFeed) {
+                    id
+                }
+			}
+		`,
+		{
+            organizationFeed,
+			userFeed,
+			activity,
+		}
+	);
+}
+
+/**
+ * Agents
+ */
+
+/**
+ * Creates a 'created' activity on the agents feed, and makes sure the organization
+ * is following the newly created agent.
+ */
+export const onAgentCreated = (event, { gql, request }) => {
+	const { fullDocument } = event.data.body;
+
+    const organizationId = event.organization;
+    const agentId = fullDocument._id.toString();
+
+    const organizationFeed = `organization:${orgId}`;
+    const agentFeed = `agent:${agentId}`;
+
+	const activity = {
+		object: agentId,
+        entity: 'Agent',
+        verb: event.trigger,
+		text: 'was created.', // TODO: We should do these in the FE based on the verb rather than hardcode them into stream.
+		actor: organizationId,
+	};
+
+	return request(
+		gql`
+			mutation createAgentCreatedActivity($agentFeed: StreamID!, $activity: StreamAddActivityInput!) {
+				addActivity(feed: $agentFeed, activity: $activity) {
+					id
+				}
+
+                orgFollowAgent: follow(feed: $organizationFeed, toFollow: $agentFeed) {
+                    id
+                }
+			}
+		`,
+		{
+            organizationFeed,
+			agentFeed,
+			activity,
+		}
+	);
+}
