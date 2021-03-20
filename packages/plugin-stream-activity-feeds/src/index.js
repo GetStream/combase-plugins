@@ -145,7 +145,7 @@ export const onUserCreated = (event, { gql, request }) => {
 
 	return request(
 		gql`
-			mutation createUserCreatedActivity($userFeed: StreamID!, $activity: StreamAddActivityInput!) {
+			mutation createUserCreatedActivity($organizationFeed: StreamID!, $userFeed: StreamID!, $activity: StreamAddActivityInput!) {
 				addActivity(feed: $userFeed, activity: $activity) {
 					id
 				}
@@ -190,7 +190,7 @@ export const onAgentCreated = (event, { gql, request }) => {
 
 	return request(
 		gql`
-			mutation createAgentCreatedActivity($agentFeed: StreamID!, $activity: StreamAddActivityInput!) {
+			mutation createAgentCreatedActivity($organizationFeed: StreamID!, $agentFeed: StreamID!, $activity: StreamAddActivityInput!) {
 				addActivity(feed: $agentFeed, activity: $activity) {
 					id
 				}
