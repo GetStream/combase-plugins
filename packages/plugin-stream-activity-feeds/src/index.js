@@ -132,7 +132,7 @@ export const onUserCreated = (event, { gql, request }) => {
     const organizationId = event.organization;
     const userId = fullDocument._id.toString();
 
-    const organizationFeed = `organization:${orgId}`;
+    const organizationFeed = `organization:${organizationId}`;
     const userFeed = `user:${userId}`;
 
 	const activity = {
