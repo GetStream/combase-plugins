@@ -14,7 +14,7 @@ const setAgentUnavailable = (ticketId) => (gql) => [
 
 const addToChat = (agent, ticketId) => (gql) => [
     gql`
-        mutation assignTicket($agent: MongoID, $ticket: MongoID!, $status: EnumTicketStatus) {
+        mutation assignTicket($agent: MongoID!, $ticket: MongoID!, $status: EnumTicketStatus) {
             ticketAssign(agent: $agent, ticket: $ticket, status: $status) {
                 _id
             }
