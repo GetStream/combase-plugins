@@ -1,7 +1,7 @@
 {
 	"name": "Activity Feeds",
 	"icon": "./stream.jpg",
-	"category": ["organizational"],
+	"category": ["organization"],
 	"configuration": {},
 	"triggers": {
 		"ticket.created": "onTicketCreated",
